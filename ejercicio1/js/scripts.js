@@ -1,14 +1,18 @@
 var listItems = {
     items: [],
     assamble: function(item){
-        return '<div class="row">'
+        return '<div class="row"' 
+        + 'data-id="'+item.id+'">'
         + '<span class="col-2"></span>'
         + '<span class="col-2">' + item.brand + '</span>'
         + '<span class="col-2">' + item.location + '</span>'
         + '<span class="col-2">' + item.lunch + '</span>'
         + '<span class="col-2">' + item.price + '</span>'
-        + '<span class="col-2"></span>'
-        +'<span class="description col-12"></span>'
+        + '<span class="col-2">'
+        + '<button type="text" class="show">Show</button>'
+        + '</span>'
+        + '<span class="description col-12">'
+        + item.description + '</span>'
         + '</div>';
     },
 
@@ -18,6 +22,11 @@ var listItems = {
                 listItems.assamble(listItems.items[i])
             );
         }
+        $('.show').on('click', function(){
+            $(this).parents('.row')
+            .find('.description')
+            .show();
+            });
     },
 
     setItems: function (items){
@@ -64,27 +73,33 @@ var listItems = {
         }
     }
 }
-listItems.setItems(elementslist);
-$('#brand').on('click', function(){
-    listItems.filterByBrand();
+
+listItems.setItems(elementsList);
+$('#action1').on('click', function(){
+    var input =  $('#brand').val();
+    listItems.filterByBrand(input);
 })
 
-$('#price').on('click', function(){
-    listItems.filterByPrice();
+$('#action2').on('click', function(){
+    var input = $('#price').val();
+    listItems.filterByPrice(input);
 })
 
-$('#set').on('click',function(){
+$('#action3').on('click',function(){
+    var input = $('#set').val();
     listItems.setItems(elementslist);
     })
 
-$('#clear').on('click', function(){
+$('#action4').on('click', function(){
+    var input = $('#clear').val();
     listItems.clearTable();  
     })
     
-    $('#lunch').on('click', function(){
-        listItems.filterByLunch();
+$('#lunch').on('click', function(){
+    listItems.filterByLunch();
     })
 
-    $('#location').on('click', function(){
-        listItems.filterByLocation();
+$('#location').on('click', function(){
+    listItems.filterByLocation();
     })
+
